@@ -1,10 +1,6 @@
 import streamlit as st
 from PIL import Image
-
-def hbar():
-    """Adds a horizontal bar"""
-    st.write("---")
-
+from utils.gui import hbar
 
 emoji = '🏠'
 st.set_page_config(page_title='Hasaki Recomendation App', page_icon=emoji, layout='centered')
