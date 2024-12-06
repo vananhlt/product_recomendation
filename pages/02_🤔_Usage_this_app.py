@@ -51,7 +51,7 @@ def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):
         return pd.DataFrame()  # Return an empty DataFrame if no match
 
     idx = matching_indices[0]
-    sim_scores = cosine_sim
+    sim_scores = pd.DataFrame(coíne_sim)
     sim_scores = sim_scores[idx]
     sim_scores = sim_scores.sort_values(key=lambda x: x, ascending=False)
     sim_scores = sim_scores[1:nums+1]  # Lấy n sản phẩm tương tự nhất
