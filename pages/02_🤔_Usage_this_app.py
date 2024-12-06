@@ -4,7 +4,7 @@ import pickle
 from utils.gui import icon, space, hbar
 
 # Hàm đề xuất sản phẩm
-cosine_sim = pd.read_pickle('data/products_gensim_sim.pkl')
+cosine_sim = pd.read_pickle('data/products_gensim_sim.pkl', 'gz')
 
 # Lấy danh sách userID để đưa vào Account sidebar
 customer = pd.read_csv('data/Khach_hang.csv')
