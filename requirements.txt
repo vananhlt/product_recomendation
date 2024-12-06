@@ -5,3 +5,4 @@ matplotlib
 seaborn
 scikit-learn
 pickle
+python 3.8.10
