@@ -24,13 +24,5 @@ def subsubheader(*args):
     text = " · ".join(tuple(args))
     st.write(text)
 
-
-def underline(text: str, color: str = BLUE_COLOR) -> str:
-    """Underlines input text using HTML"""
-    style = "font-size:18px; text-decoration-style: dotted; "
-    style += "text-underline-offset: 5px; "
-    style += f"text-decoration-color:{color};"
-    return f"""<strong> <u style="{style}"> {text}</u> </strong>"""
-
 if __name__ == "__main__":
     pass
