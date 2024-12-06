@@ -154,5 +154,5 @@ def main():
     recommended_user = recomended_for_userid(userID)
     display_recommended_products(recommended_user, img_path='img/product_of_you_2.png')
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
