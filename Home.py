@@ -1,6 +1,10 @@
 import streamlit as st
-from utils.gui import hbar
 from PIL import Image
+
+def hbar():
+    """Adds a horizontal bar"""
+    st.write("---")
+
 
 emoji = '🏠'
 st.set_page_config(page_title='Hasaki Recomendation App', page_icon=emoji, layout='centered')
@@ -37,12 +41,12 @@ with st.sidebar:
 
     
 # if __name__ == '__main__':
-# import sys
-# from streamlit import runtime
-# from streamlit.web import cli as stcli
-#     if runtime.exists():
-#         pass
+    # import sys
+    # from streamlit import runtime
+    # from streamlit.web import cli as stcli
+    # if runtime.exists():
+    #     pass
     
-#     else:
-#         sys.argv = ['streamlit', 'run', sys.argv[0]]
-#         sys.exit(stcli.main())
+    # else:
+    #     sys.argv = ['streamlit', 'run', sys.argv[0]]
+    #     sys.exit(stcli.main())
