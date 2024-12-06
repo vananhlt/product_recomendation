@@ -151,8 +151,8 @@ def main():
   with tab2:
     st.write(f'#### Đề xuất cho ID: {userID}')
     st.write(f'##### Các sản phẩm liên quan:')    
-    recommended_user = recomended_for_userid(userID)
-    display_recommended_products(recommended_user, img_path='img/product_of_you_2.png')
+    recommended_users = recomended_for_userid(userID)
+    display_recommended_products(recommended_users, img_path='img/product_of_you_2.png')
 
 if __name__ == "__main__":
     main()
