@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
+from utils.gui import icon, space, hbar
 
 # Lấy danh sách userID để đưa vào Account sidebar
 customer = pd.read_csv('data/Khach_hang.csv')
@@ -12,24 +13,6 @@ ITEMS_OPTIONS = products['ten_san_pham'].values[0:20]
 
 # Lấy danh sách recomended theo userID
 RECOMENDED_USERID = pd.read_csv('data/alsResult_rec.csv')
-
-def icon(emoji: str):
-    """Hiển thị emoji icon cho page."""
-    st.write(
-        f'<span style="font-size: 78px; line-height: 1">{emoji}</span>',
-        unsafe_allow_html=True,
-    )
-
-def space(num_lines: int = 1):
-    """Adds empty lines to the Streamlit app."""
-    for _ in range(num_lines):
-        st.write("")
-
-
-def hbar():
-    """Adds a horizontal bar"""
-    st.write("---")
-
 
 emoji = '🤔'
 st.set_page_config(
