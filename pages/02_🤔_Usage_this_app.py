@@ -3,6 +3,10 @@ import pandas as pd
 import pickle
 from utils.gui import icon, space, hbar
 
+# Hàm đề xuất sản phẩm
+with open('data/products_gensim_sim.pkl', 'rb') as f:
+    cosine_sim = pickle.load(f)
+
 # Lấy danh sách userID để đưa vào Account sidebar
 customer = pd.read_csv('data/Khach_hang.csv')
 USERID_OPTIONS = customer['ma_khach_hang'].values[0:20]
@@ -40,11 +44,7 @@ st.write(
 space(1)
 hbar()
 
-def get_recommendations(sp_id, df=products, nums=5):
-    # Hàm đề xuất sản phẩm
-    with open('data/products_gensim_sim.pkl', 'rb') as f:
-        cosine_sim = pickle.load(f)
-        
+def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):   
     # Get the index of the product that matches the ma_san_pham
     matching_indices = df.index[df['ma_san_pham'] == sp_id].tolist()
     if not matching_indices:
