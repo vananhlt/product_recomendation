@@ -40,6 +40,11 @@ def main():
     with st.sidebar:
         st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
         st.sidebar.info('Choose a page! 👆')
+        hbar()
+        st.sidebar.write("""##### 🏅 Thực hiện bởi:
+                        Lê Thị Vân Anh & Nguyễn Vũ Khương""")
+        st.sidebar.write("""##### 👩‍🏫 Giảng viên: Cô Khuất Thùy Phương""")
+        st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")    
     
     # Header
     icon(emoji)
