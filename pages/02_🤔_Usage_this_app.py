@@ -3,9 +3,6 @@ import pandas as pd
 import pickle
 from utils.gui import icon, space, hbar
 
-# Hàm đề xuất sản phẩm
-cosine_sim = pd.read_pickle('data/products_gensim_sim.pkl', 'gz')
-
 # Lấy danh sách userID để đưa vào Account sidebar
 customer = pd.read_csv('data/Khach_hang.csv')
 USERID_OPTIONS = customer['ma_khach_hang'].values[0:20]
@@ -13,6 +10,11 @@ USERID_OPTIONS = customer['ma_khach_hang'].values[0:20]
 # Lấy danh sách sản phẩm content-based để recomended
 products = pd.read_csv('data/San_pham.csv')
 ITEMS_OPTIONS = products['ten_san_pham'].values[0:20]
+
+# Đọc danh sách đề xuất sản phẩm
+with open('data/products_gensim_sim.pkl', 'rb') as f:
+    cosine_sim = pickle.load(f)
+
 
 # Lấy danh sách recomended theo userID
 RECOMENDED_USERID = pd.read_csv('data/alsResult_rec.csv')
@@ -43,7 +45,8 @@ st.write(
 space(1)
 hbar()
 
-def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):   
+def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):
+        
     # Get the index of the product that matches the ma_san_pham
     matching_indices = df.index[df['ma_san_pham'] == sp_id].tolist()
     if not matching_indices:
@@ -51,7 +54,7 @@ def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):
         return pd.DataFrame()  # Return an empty DataFrame if no match
 
     idx = matching_indices[0]
-    sim_scores = pd.DataFrame(coíne_sim)
+    sim_scores = pd.DataFrame(cosine_sim)
     sim_scores = sim_scores[idx]
     sim_scores = sim_scores.sort_values(key=lambda x: x, ascending=False)
     sim_scores = sim_scores[1:nums+1]  # Lấy n sản phẩm tương tự nhất
