@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from PIL import Image
 import pickle
 from utils.gui import icon, space, hbar
 
@@ -44,6 +45,12 @@ st.write(
 # st.write(f'You wrote {len(content)} characters.')
 space(1)
 hbar()
+
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
 
 def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):
         
@@ -107,18 +114,21 @@ def recomended_for_userid(userid, df=RECOMENDED_USERID):
     return recommended_user
 
 def main():
-    
-  # Make sure session state is preserved
-  userID = st.sidebar.selectbox(
-                        'Chọn tài khoản login 👇',
-                        options=USERID_OPTIONS
-                        )
+  with st.sidebar:
+    st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
+    st.sidebar.info('Choose a page!')
 
-  if userID:
-    st.sidebar.text(f'🆔: {userID}')  
+    # Make sure session state is preserved
+    userID = st.sidebar.selectbox(
+                            'Chọn tài khoản login 👇',
+                            options=USERID_OPTIONS
+                            )
+    if userID:
+        st.sidebar.text(f'🆔: {userID}')  
+  
   st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
   # Tạo hai tab tương ứng với hai loại recomended    
-  tab1, tab2 = st.tabs(['🧺 BY PRODUCT', '👨‍👨‍👧‍👧 BY USER'])
+  tab1, tab2 = st.tabs(['🏷️ BY PRODUCT', '👨‍👨‍👧‍👧 BY USER'])
 
   with tab1:  
     st.subheader('Content-based filtering')
