@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 import pandas as pd
 from utils.gui import icon, space, hbar
 
@@ -28,7 +29,18 @@ def product_dataframe(df=products):
         
     return df.head(5).sort_values(by='Điểm TB', ascending=False)
 
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+
 def main():
+    
+    with st.sidebar:
+        st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
+        st.sidebar.info('Choose a page!')
+        hbar()        
     # Header
     icon(emoji)
     st.subheader('Business Objective')
