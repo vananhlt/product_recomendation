@@ -7,7 +7,7 @@ products = pd.read_csv('data/San_pham.csv')
 customer = pd.read_csv('data/Khach_hang.csv')
 USERID_OPTIONS = customer['ma_khach_hang'].values[0:20]
 
-emoji = '🌀'
+emoji = '🏠'
 st.set_page_config(
     page_title='Dataset Insights', page_icon=emoji, layout='centered'
 )
