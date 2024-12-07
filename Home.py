@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-from utils.gui import hbar
+from utils.gui import space, hbar
 
 emoji = '🌀'
 st.set_page_config(page_title='Hasaki Recomendation App', page_icon=emoji, layout='centered')
@@ -23,6 +23,22 @@ This app provides insights on a demo recomendation for account usage.
     """
 )
 hbar()
+space(1)  
+st.markdown(
+"""
+### Đây là Đồ Án Tốt Nghiệp Data Science \n
+"""
+)
+sig_markdown = f"<h3 style='text-align: left; color: blue;'>Trung Tâm Tin Học - Trường Đại Học Khoa Học Tự Nhiên</h3>"
+st.markdown(sig_markdown, unsafe_allow_html=True)
+
+st.markdown(
+"""
+Khóa: DL07_299T27_ON \n
+
+"""
+)
+st.image(add_logo(logo_path='img/tree_edu.png', width=175, height=240))
 
 # userID selector
 with st.sidebar:
