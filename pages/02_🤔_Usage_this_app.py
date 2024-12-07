@@ -123,8 +123,13 @@ def main():
                             )
     if userID:
         st.sidebar.text(f'🆔: {userID}')  
+    hbar()
+    st.sidebar.write("""##### 🏅 Thực hiện bởi:
+                    Lê Thị Vân Anh & Nguyễn Vũ Khương""")
+    st.sidebar.write("""##### 👩‍🏫 Giảng viên: Cô Khuất Thùy Phương""")
+    st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")  
   
-  st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
+    st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
   # Tạo hai tab tương ứng với hai loại recomended
   tab1, tab2 = st.tabs(['🏷️ BY PRODUCT', '👨‍👨‍👧‍👧 BY USER'])
   with tab1:  
