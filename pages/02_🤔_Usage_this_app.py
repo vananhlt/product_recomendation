@@ -12,7 +12,7 @@ products = pd.read_csv('data/San_pham.csv')
 ITEMS_OPTIONS = products['ten_san_pham'].values[0:20]
 
 # Đọc danh sách đề xuất sản phẩm
-with open('data/products_gensim_sim.pkl', 'r') as f:
+with open('data/products_gensim_sim.pkl', 'rb') as f:
     cosine_sim = pickle.load(f)
 
 
