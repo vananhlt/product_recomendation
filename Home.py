@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 from utils.gui import hbar
 
-emoji = '🏠'
+emoji = '🌀'
 st.set_page_config(page_title='Hasaki Recomendation App', page_icon=emoji, layout='centered')
 
 def add_logo(logo_path, width, height):
@@ -28,7 +28,7 @@ st.image(image='img/recomender.png')
 # userID selector
 with st.sidebar:
     st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
-    st.sidebar.info('Choose a page!')
+    st.sidebar.info('Choose a page! 👆')
     hbar()
     st.sidebar.write("""#### Thực hiện bởi:
                     Lê Thị Vân Anh & Nguyễn Vũ Khương""")
@@ -36,13 +36,13 @@ with st.sidebar:
     st.sidebar.write("""#### Ngày báo cáo: 16/12/2024""")    
 
     
-# if __name__ == '__main__':
-    # import sys
-    # from streamlit import runtime
-    # from streamlit.web import cli as stcli
-    # if runtime.exists():
-    #     pass
+if __name__ == '__main__':
+    import sys
+    from streamlit import runtime
+    from streamlit.web import cli as stcli
+    if runtime.exists():
+        pass
     
-    # else:
-    #     sys.argv = ['streamlit', 'run', sys.argv[0]]
-    #     sys.exit(stcli.main())
+    else:
+        sys.argv = ['streamlit', 'run', sys.argv[0]]
+        sys.exit(stcli.main())
