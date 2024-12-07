@@ -161,6 +161,7 @@ def main():
             st.write(f'Không tìm thấy sản phẩm với ID: {ITEM_CODE}')
   
   with tab2:
+    st.subheader('Collaborative Filtering')
     st.write(f'#### Đề xuất cho ID: {userID}')
     st.write(f'##### Các sản phẩm liên quan:')    
     recommended_users = recomended_for_userid(userID)
