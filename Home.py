@@ -23,17 +23,16 @@ This app provides insights on a demo recomendation for account usage.
     """
 )
 hbar()
-st.image(image='img/recomender.png')
 
 # userID selector
 with st.sidebar:
     st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
     st.sidebar.info('Choose a page! 👆')
     hbar()
-    st.sidebar.write("""#### Thực hiện bởi:
+    st.sidebar.write("""##### 🏅 Thực hiện bởi:
                     Lê Thị Vân Anh & Nguyễn Vũ Khương""")
-    st.sidebar.write("""#### Giảng viên: Khuất Thùy Phương""")
-    st.sidebar.write("""#### Ngày báo cáo: 16/12/2024""")    
+    st.sidebar.write("""##### 👩‍🏫 Giảng viên: Cô Khuất Thùy Phương""")
+    st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")    
 
     
 if __name__ == '__main__':
