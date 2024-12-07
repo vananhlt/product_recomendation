@@ -115,7 +115,7 @@ def main():
   with st.sidebar:
     st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
     st.sidebar.info('Choose a page!')
-
+    
     # Make sure session state is preserved
     userID = st.sidebar.selectbox(
                             'Chọn tài khoản login 👇',
@@ -128,8 +128,8 @@ def main():
                     Lê Thị Vân Anh & Nguyễn Vũ Khương""")
     st.sidebar.write("""##### 👩‍🏫 Giảng viên: Cô Khuất Thùy Phương""")
     st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")  
-  
-    st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
+      
+  st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
   # Tạo hai tab tương ứng với hai loại recomended
   tab1, tab2 = st.tabs(['🏷️ BY PRODUCT', '👨‍👨‍👧‍👧 BY USER'])
   with tab1:  

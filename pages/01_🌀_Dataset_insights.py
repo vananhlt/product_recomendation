@@ -44,7 +44,7 @@ def main():
         st.sidebar.write("""##### 🏅 Thực hiện bởi:
                         Lê Thị Vân Anh & Nguyễn Vũ Khương""")
         st.sidebar.write("""##### 👩‍🏫 Giảng viên: Cô Khuất Thùy Phương""")
-        st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")    
+        st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")
     
     # Header
     icon(emoji)
@@ -82,7 +82,7 @@ def main():
     
     st.dataframe(data=df, use_container_width=True, hide_index=True, column_config=column_config)    
     space(1)
-    st.subheader('Distribution of Product',)
+    st.subheader('Distribution of Product')
 
     left_col, right_col = st.columns(2)
     with left_col:
@@ -100,8 +100,11 @@ def main():
 
     st.subheader('Quá trình tiền xử lý trước khi đưa vào mô hình')
     st.image(image='img/pipline.png')
-    space(1)
     hbar()
     
+    space(5)
+    footer_markdown = f"<h6 style='text-align: center; color: blue;'>**©️ DEMO RECOMENDATION **</h6>"
+    st.markdown(footer_markdown, unsafe_allow_html=True)    
+
 if __name__ == "__main__":
     main()
