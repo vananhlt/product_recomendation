@@ -31,7 +31,6 @@ st.title('About this app')
 st.write(
     """
 ### How does this app work?
-
 - With Content-based filtering (model gensim) Using select product.
 - With Collaborative Filtering (model ALS) selection UserID in the sibebar.
 
@@ -43,7 +42,6 @@ st.write(
     # st.download_button(label='Send Comments', data=content, file_name='my_notes.txt')
 
 # st.write(f'You wrote {len(content)} characters.')
-space(1)
 hbar()
 
 def add_logo(logo_path, width, height):
@@ -104,7 +102,7 @@ def display_recommended_products(recommended_products, img_path):
             st.write('\n{}'.format(truncated_description))
     space(5)
     footer_markdown = f"<h6 style='text-align: center; color: blue;'>**©️ DEMO RECOMENDATION **</h6>"
-    st.markdown(footer_markdown, unsafe_allow_html=True)        
+    st.markdown(footer_markdown, unsafe_allow_html=True)    
 
 def recomended_for_userid(userid, df=RECOMENDED_USERID):
 
@@ -127,16 +125,15 @@ def main():
         st.sidebar.text(f'🆔: {userID}')  
   
   st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
-  # Tạo hai tab tương ứng với hai loại recomended    
+  # Tạo hai tab tương ứng với hai loại recomended
   tab1, tab2 = st.tabs(['🏷️ BY PRODUCT', '👨‍👨‍👧‍👧 BY USER'])
-
   with tab1:  
     st.subheader('Content-based filtering')
     for selected_item in st.session_state:
         st.session_state[selected_item] = st.session_state[selected_item]      
         
     selected_product = st.selectbox(
-        'Product selection 👇',
+        'Lựa chọn sản phẩm 👇',
         options=ITEMS_OPTIONS,
         key='selected_item',)
     
@@ -153,7 +150,7 @@ def main():
             st.write('##### Thông tin:')
             st.write(truncated_description, '...')
 
-            st.write('##### Các sản phẩm liên quan:')
+            st.write('### Các sản phẩm liên quan:')
             recommended_products = get_recommendations(ITEM_CODE)
             display_recommended_products(recommended_products, img_path='img/product_of_you.png')
         
@@ -163,7 +160,7 @@ def main():
   with tab2:
     st.subheader('Collaborative Filtering')
     st.write(f'#### Đề xuất cho ID: {userID}')
-    st.write(f'##### Các sản phẩm liên quan:')    
+    st.write(f'#### Các sản phẩm liên quan:')    
     recommended_users = recomended_for_userid(userID)
     display_recommended_products(recommended_users, img_path='img/product_of_you_2.png')
 

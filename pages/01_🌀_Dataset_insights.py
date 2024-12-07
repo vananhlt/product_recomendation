@@ -49,11 +49,26 @@ def main():
         """)
     space(1)
     st.write("""###### 🔑 Problem/ Requirement: Giả sử HASAKI.VN chưa triển khai hệ thống Recommender System giúp đề xuất sản phẩm phù hợp tới người dùng và bạn được yêu cầu triển khai hệ thống này, bạn sẽ làm gì?""")    
-    
-    space(1)
+    st.image('img/hasaki_1.jpg')  
     hbar()
+    
+    # Giới thiệu mô hình sử dụng trong project
+    st.write(
+    """
+    ### Lựa chọn thuật toán sử dụng đề xuất?
+    - Content-based filtering bằng Cosine Similarity (mô hình Gensim)
+    so sánh mức độ giống nhau của hai văn bản bằng cách tính khoảng cách giữa hai vec-tơ qua phương pháp đo góc Cosine.
 
+    - Collaborative Filtering với Similarity matrix (mô hình ALS)
+    phương pháp gợi ý sản phẩm với ý tưởng chính dựa trên các hành vi của các users khác cùng trên một item để suy ra mức độ quan tâm
+    của một user lên sản phẩm. Việc suy ra này được thực hiện dựa trên Similarity matrix đo độ giống nhau giữa các users.
+    """
+    )
+    st.image(image='img/recomender.png')
+    hbar()
+    
     # Get data
+    st.subheader('Tìm hiểu về bộ dữ liệu Hasaki')
     st.subheader('Reviews Product')
     df = product_dataframe()
     
@@ -75,14 +90,13 @@ def main():
         st.image(image='img/length.png', caption='Đa phần sử dụng 200-400 từ để mô tả sản phẩm')
 
     st.image(image='img/rating_price.png', caption='Tương quan nghịch giữa giá bán và điểm trung bình')
-    space(1)
-    hbar()
-    
-    st.image(image='img/pipline.png')
     st.image('img/wordcloud.png', caption='Wordcloud mô tả sản phẩm')
+    hbar()
+
+    st.subheader('Quá trình tiền xử lý trước khi đưa vào mô hình')
+    st.image(image='img/pipline.png')
     space(1)
     hbar()
     
-
 if __name__ == "__main__":
     main()
