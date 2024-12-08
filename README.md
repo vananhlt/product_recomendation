@@ -11,5 +11,6 @@ data thư mục chứa dữ liệu và model sẽ được đọc và load hiể
 pages chứa code cho từng PAGES giao diện streamlit. Gồm 02 Pages:
 
     - 01_🌀_Dataset_insights.py
-    
+    Giao diện giới thiệu về mục đích project và các bước thực hiện
     - 02_🤔_Usage_this_app.py
+    Giao diện hiển thị kết quả Recomendation cho từng model
