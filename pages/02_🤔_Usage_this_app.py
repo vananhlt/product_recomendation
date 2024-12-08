@@ -4,6 +4,9 @@ from PIL import Image
 import pickle
 from utils.gui import icon, space, hbar
 
+# Lấy danh sách đánh giá để đưa vào top n đề xuất nếu người dùng chưa lựa chọn
+reviews = pd.read_csv('data/Danh_gia.csv')
+
 # Lấy danh sách userID để đưa vào Account sidebar
 customer = pd.read_csv('data/Khach_hang.csv')
 USERID_OPTIONS = customer['ma_khach_hang'].values[0:20]
@@ -15,7 +18,6 @@ ITEMS_OPTIONS = products['ten_san_pham'].values[0:20]
 # Đọc danh sách đề xuất sản phẩm
 with open('data/products_gensim_sim.pkl', 'rb') as f:
     cosine_sim = pickle.load(f)
-
 
 # Lấy danh sách recomended theo userID
 RECOMENDED_USERID = pd.read_csv('data/alsResult_rec.csv')
@@ -73,6 +75,19 @@ def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):
 
     return result
 
+def get_topn_recommendations(reviews=reviews, df=products, nums=5):
+
+    result = products.merge(reviews, how='left', on='ma_san_pham')
+    result = result[['ma_khach_hang', 'ma_san_pham', 'ten_san_pham', 'mo_ta', 'gia_ban', 'gia_goc', 'diem_trung_binh']]
+    result = result.groupby(by=['ma_san_pham', 'ten_san_pham', 'mo_ta', 'gia_ban', 'diem_trung_binh'], as_index=False).count()
+    # Sort theo điểm trung bình đánh giá được ưu tiên trước sau đó đến số lượng khách hàng đã bình luận
+    result = result.sort_values(by=['diem_trung_binh','ma_khach_hang'], ascending=False)
+    # Chỉ đề xuất top 05 sản phẩm
+    result = result[result['diem_trung_binh']>3]
+    result = result.head(nums)
+
+    return result
+
 # def display_recommended_products_with_expander(recommended_products, cols=5):
 #     # Hiển thị đề xuất ra bảng
 #     for i in range(0, len(recommended_products), cols):
@@ -88,61 +103,59 @@ def get_recommendations(sp_id, cosine_sim=cosine_sim, df=products, nums=5):
 #                     expander.write(truncated_description)
 #                     expander.markdown("Nhấn vào mũi tên để đóng hộp text này.")  
 
-def display_recommended_products(recommended_products, img_path):
-    # Hiển thị đề xuất ra từng dòng
+def display_recommended(recommended_products, img_path):
+    # Hiển thị đề xuất ra từng line kèm hình ảnh
     icon = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣']
     for i in range(0, len(recommended_products)):
         product = recommended_products.iloc[i]
         ten_sp = '{} - {}'.format(icon[i], product['ten_san_pham'])
+        gia_ban = '💰 - Giá bán: {:,.0f}đ'.format(product['gia_ban'])
+        diem = '🍅 - Đánh giá: {:.1f} ⭐'.format(product['diem_trung_binh'])
         st.write(ten_sp)
-        st.image(img_path)
+        st.write(gia_ban)
+        st.write(diem)
+        st.image(img_path)  
         with st.expander('Xem thêm Mô tả'):
             product_description = product['mo_ta']
             truncated_description = ' '.join(product_description.split()[:100]) + '...'
             st.write('\n{}'.format(truncated_description))
     space(5)
     footer_markdown = f"<h6 style='text-align: center; color: blue;'>**©️ DEMO RECOMENDATION **</h6>"
-    st.markdown(footer_markdown, unsafe_allow_html=True)    
+    st.markdown(footer_markdown, unsafe_allow_html=True)
 
 def recomended_for_userid(userid, df=RECOMENDED_USERID):
-
+    # Đề xuất cho một người dụng cụ thể
     recommended_user = df[df['ma_khach_hang']==userid]
     recommended_user = recommended_user.merge(products, how='left', on=['ma_san_pham', 'ten_san_pham', 'diem_trung_binh'])
     recommended_user.drop(columns='phan_loai', inplace=True)
     return recommended_user
 
 def main():
+  
   with st.sidebar:
     st.sidebar.image(add_logo(logo_path='img/hasaki_logo.png', width=1400, height=569)) 
     st.sidebar.info('Choose a page!')
-    
-    # Make sure session state is preserved
-    userID = st.sidebar.selectbox(
-                            'Chọn tài khoản login 👇',
-                            options=USERID_OPTIONS
-                            )
-    if userID:
-        st.sidebar.text(f'🆔: {userID}')  
     hbar()
     st.sidebar.write("""##### 🏅 Thực hiện bởi:
                     Lê Thị Vân Anh & Nguyễn Vũ Khương""")
     st.sidebar.write("""##### 👩‍🏫 Giảng viên: Cô Khuất Thùy Phương""")
     st.sidebar.write("""##### 📅 Ngày báo cáo: 15/12/2024""")  
-      
+    hbar()  
   st.write('### LỰA CHỌN MÔ HÌNH ĐỀ XUẤT')
+  
   # Tạo hai tab tương ứng với hai loại recomended
   tab1, tab2 = st.tabs(['🏷️ BY PRODUCT', '👨‍👨‍👧‍👧 BY USER'])
   with tab1:  
-    st.subheader('Content-based filtering')
-    for selected_item in st.session_state:
-        st.session_state[selected_item] = st.session_state[selected_item]      
+    st.subheader('Content-based filtering')     
         
     selected_product = st.selectbox(
         'Lựa chọn sản phẩm 👇',
         options=ITEMS_OPTIONS,
+        index=None,
+        placeholder='Chọn sản phẩm tìm kiếm',
         key='selected_item',)
     
-    if selected_product:
+    if selected_product!=None:
         selected_product = products[products['ten_san_pham'] == selected_product]
         ITEM_CODE = selected_product['ma_san_pham'].values[0]
         
@@ -157,17 +170,39 @@ def main():
 
             st.write('### Các sản phẩm liên quan:')
             recommended_products = get_recommendations(ITEM_CODE)
-            display_recommended_products(recommended_products, img_path='img/product_of_you.png')
-        
+            display_recommended(recommended_products, img_path='img/product_of_you.png')  
         else:    
             st.write(f'Không tìm thấy sản phẩm với ID: {ITEM_CODE}')
-  
-  with tab2:
-    st.subheader('Collaborative Filtering')
-    st.write(f'#### Đề xuất cho ID: {userID}')
-    st.write(f'#### Các sản phẩm liên quan:')    
-    recommended_users = recomended_for_userid(userID)
-    display_recommended_products(recommended_users, img_path='img/product_of_you_2.png')
+    
+    else:
+        st.write(f'#### 🏆 TOP SẢN PHẨM ĐƯỢC NGƯỜI DÙNG ĐỀ XUẤT') 
+        recommended_top = get_topn_recommendations()
+        display_recommended(recommended_top, img_path='img/best_seller.png')
+
+  with tab2:    
+    # Make sure session state is preserved 
+    userID = st.sidebar.selectbox(
+                            'Chọn tài khoản login 👇',
+                            options=USERID_OPTIONS,
+                            key='userID',
+                            index=None,
+                            placeholder='Đăng nhập với tư cách',
+                            )
+    
+    st.subheader('Collaborative Filtering') 
+    if userID!=None:
+        st.write(f'#### Đề xuất cho ID: {userID}')
+        st.write(f'#### Các sản phẩm liên quan:')   
+        st.sidebar.text(f'🆔: {userID}')
+        recommended_users = recomended_for_userid(userID)
+        display_recommended(recommended_users, img_path='img/product_of_you_2.png')
+    
+    else:
+        st.write(f'#### 🏆 TOP SẢN PHẨM ĐƯỢC NGƯỜI DÙNG ĐỀ XUẤT') 
+        recommended_top = get_topn_recommendations()
+        display_recommended(recommended_top, img_path='img/best_seller.png')
+
+    
 
 if __name__ == "__main__":
     main()
