@@ -9,5 +9,7 @@ img thư mục chứa hình ảnh sử dụng trên streamlit
 data thư mục chứa dữ liệu và model sẽ được đọc và load hiển thị kết quả
 
 pages chứa code cho từng PAGES giao diện streamlit. Gồm 02 Pages:
+
     - 01_🌀_Dataset_insights.py
+    
     - 02_🤔_Usage_this_app.py
