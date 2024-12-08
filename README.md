@@ -1,6 +1,6 @@
-# ❤️Welcome to Streamlit!❤️
+# ❤️Welcome to demo Product Recomendation on Streamlit!❤️
 
-# Cấu trúc file GUI
+## Cấu trúc file GUI
 
 Home.py chứa code chương trình chính khởi động app
 
